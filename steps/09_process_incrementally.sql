@@ -23,13 +23,15 @@ FROM @external.frostbyte_raw_stage/pos/order_header/year=2022
 FILE_FORMAT = (FORMAT_NAME = EXTERNAL.PARQUET_FORMAT)
 MATCH_BY_COLUMN_NAME = CASE_SENSITIVE;
 
+list @external.frostbyte_raw_stage/pos/order_header/year=2022;
+
 COPY INTO ORDER_DETAIL
 FROM @external.frostbyte_raw_stage/pos/order_detail/year=2022
 FILE_FORMAT = (FORMAT_NAME = EXTERNAL.PARQUET_FORMAT)
 MATCH_BY_COLUMN_NAME = CASE_SENSITIVE;
 
 -- See how many new records are in the stream (this may be a bit slow)
---SELECT COUNT(*) FROM HARMONIZED.POS_FLATTENED_V_STREAM;
+SELECT COUNT(*) FROM HARMONIZED.POS_FLATTENED_V_STREAM;
 
 ALTER WAREHOUSE HOL_WH SET WAREHOUSE_SIZE = XSMALL;
 
